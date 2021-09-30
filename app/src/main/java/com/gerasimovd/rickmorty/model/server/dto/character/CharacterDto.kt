@@ -12,13 +12,14 @@ data class CharacterDto(
     @SerializedName("species") val species: String,
     @SerializedName("type") val type: String,
     @SerializedName("gender") val gender: String,
-    @SerializedName("origin") val origin: OriginDto,
-    @SerializedName("location") val location: LocationDto,
+    @SerializedName("origin") val origin: CharacterOriginDto,
+    @SerializedName("location") val location: CharacterLocationDto,
     @SerializedName("image") val image: String,
     @SerializedName("episode") val episodes: List<String>,
     @SerializedName("url") val url: String,
     @SerializedName("created") val created: String
 ) : Parcelable {
+
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -27,8 +28,8 @@ data class CharacterDto(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
-        parcel.readParcelable(OriginDto::class.java.classLoader)!!,
-        parcel.readParcelable(LocationDto::class.java.classLoader)!!,
+        parcel.readParcelable(CharacterOriginDto::class.java.classLoader)!!,
+        parcel.readParcelable(CharacterLocationDto::class.java.classLoader)!!,
         parcel.readString() ?: "",
         parcel.createStringArrayList()?.toList() ?: emptyList(),
         parcel.readString() ?: "",

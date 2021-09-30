@@ -8,5 +8,7 @@ class Constants {
         const val LOCATION_END_POINT = "location"
 
         const val READ_TIMEOUT = 30L
+
+        const val UNKNOWN_DATA = "N/A"
     }
 }

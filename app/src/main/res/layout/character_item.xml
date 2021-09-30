@@ -3,29 +3,89 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="@dimen/_8dp"
-    tools:context=".view.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.MainActivity"
+    android:layout_margin="@dimen/_8dp">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_8dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/character_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="128dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
             tools:src="@tools:sample/avatars"
+            android:src="@drawable/ic_image_128"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/character_name"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_18sp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:textSize="@dimen/_20sp"
             tools:text="Some name"
+            app:layout_constraintStart_toEndOf="@id/character_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/character_species"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8dp"
+            android:textSize="@dimen/_16sp"
+            tools:text="Some species"
+            app:layout_constraintStart_toEndOf="@id/character_image"
+            app:layout_constraintTop_toBottomOf="@id/character_name"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/character_gender"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8dp"
+            android:textSize="@dimen/_16sp"
+            tools:text="Some gender"
+            app:layout_constraintStart_toEndOf="@id/character_species"
+            app:layout_constraintTop_toTopOf="@id/character_species"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/character_last_location_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:textSize="@dimen/_14sp"
+            android:text="@string/last_known_location_title"
+            app:layout_constraintStart_toEndOf="@id/character_image"
+            app:layout_constraintTop_toBottomOf="@id/character_gender"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/character_last_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8dp"
+            android:textSize="@dimen/_16sp"
+            tools:text="Earth"
+            app:layout_constraintStart_toEndOf="@id/character_image"
+            app:layout_constraintTop_toBottomOf="@id/character_last_location_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
