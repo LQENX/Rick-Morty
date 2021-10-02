@@ -8,20 +8,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gerasimovd.rickmorty.R
 import com.gerasimovd.rickmorty.databinding.CharacterItemBinding
-import com.gerasimovd.rickmorty.model.server.dto.character.CharacterDto
+import com.gerasimovd.rickmorty.model.entities.Character
 import com.gerasimovd.rickmorty.utils.ItemClickListener
 
 
 class CharactersAdapter(private val recyclerListener: ItemClickListener) :
-    PagingDataAdapter<CharacterDto, CharactersAdapter.ViewHolder>(diffCallback) {
+    PagingDataAdapter<Character, CharactersAdapter.ViewHolder>(diffCallback) {
 
     companion object {
-        val diffCallback = object : DiffUtil.ItemCallback<CharacterDto>() {
-            override fun areContentsTheSame(oldItem: CharacterDto, newItem: CharacterDto): Boolean {
+        val diffCallback = object : DiffUtil.ItemCallback<Character>() {
+            override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areItemsTheSame(oldItem: CharacterDto, newItem: CharacterDto): Boolean {
+            override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
                 return oldItem == newItem
             }
         }
@@ -33,7 +33,7 @@ class CharactersAdapter(private val recyclerListener: ItemClickListener) :
     class ViewHolder(val bindingView: CharacterItemBinding)
         : RecyclerView.ViewHolder(bindingView.root) {
 
-        fun bind(item: CharacterDto, clickListener: ItemClickListener) {
+        fun bind(item: Character, clickListener: ItemClickListener) {
             bindingView.apply {
                 root.setOnClickListener { clickListener.onClick(item) }
 
@@ -61,20 +61,6 @@ class CharactersAdapter(private val recyclerListener: ItemClickListener) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = getItem(position)
         currentItem?.let { holder.bind(currentItem, recyclerListener) }
-
-        /*holder.bindingView.apply {
-            Glide.with(this.root)
-                .load(currentItem?.image)
-                .placeholder(root.resources.getDrawable(R.drawable.ic_image_128))
-                .error(root.resources.getDrawable(R.drawable.ic_image_128))
-                .into(this.characterImage)
-
-
-            characterName.text = currentItem?.name ?: Constants.UNKNOWN_DATA
-            characterSpecies.text = currentItem?.species ?: Constants.UNKNOWN_DATA
-            characterGender.text = currentItem?.gender ?: Constants.UNKNOWN_DATA
-            characterLastLocation.text = currentItem?.location?.name ?: Constants.UNKNOWN_DATA
-        }*/
     }
 
 }

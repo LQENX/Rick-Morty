@@ -1,10 +1,14 @@
 package com.gerasimovd.rickmorty.di
 
-import com.gerasimovd.rickmorty.model.server.api.ApiService
+import android.content.Context
+import androidx.room.Room
+import com.gerasimovd.rickmorty.model.database.AppDatabase
+import com.gerasimovd.rickmorty.model.remote.api.ApiService
 import com.gerasimovd.rickmorty.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -39,5 +43,15 @@ object AppModule {
             .client(client)
             .build()
             .create(ApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDatabaseInstance(@ApplicationContext applicationContext: Context): AppDatabase {
+        return Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "AppDatabase")
+            .build()
     }
 }

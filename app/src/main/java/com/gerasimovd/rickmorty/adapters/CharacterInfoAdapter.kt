@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gerasimovd.rickmorty.databinding.EpisodeItemBinding
-import com.gerasimovd.rickmorty.model.server.dto.episode.EpisodeDto
+import com.gerasimovd.rickmorty.model.remote.dto.episode.EpisodeDto
 
 
 class CharacterInfoAdapter(private val episodes: List<EpisodeDto>) :

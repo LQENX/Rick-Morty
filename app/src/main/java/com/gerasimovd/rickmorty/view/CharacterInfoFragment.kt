@@ -5,21 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.gerasimovd.rickmorty.adapters.CharacterInfoAdapter
 import com.gerasimovd.rickmorty.databinding.CharacterInfoFragmentBinding
-import com.gerasimovd.rickmorty.model.server.api.ApiImpl
-import com.gerasimovd.rickmorty.model.server.dto.character.CharacterDto
-import com.gerasimovd.rickmorty.model.server.dto.episode.EpisodeDto
-import com.gerasimovd.rickmorty.viewmodel.CharacterInfoViewModel
+import com.gerasimovd.rickmorty.model.remote.api.ApiImpl
+import com.gerasimovd.rickmorty.model.remote.dto.character.CharacterDto
+import com.gerasimovd.rickmorty.model.remote.dto.episode.EpisodeDto
 import kotlinx.coroutines.launch
 
 
 class CharacterInfoFragment private constructor(): Fragment() {
     private lateinit var binding: CharacterInfoFragmentBinding
-    private val viewModel: CharacterInfoViewModel by viewModels()
     private val characterId: Int by lazy { getCharacterId() }
 
 

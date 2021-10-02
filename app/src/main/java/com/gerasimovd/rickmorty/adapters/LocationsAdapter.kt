@@ -6,7 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gerasimovd.rickmorty.databinding.LocationItemBinding
-import com.gerasimovd.rickmorty.model.server.dto.location.LocationDto
+import com.gerasimovd.rickmorty.model.remote.dto.location.LocationDto
 import com.gerasimovd.rickmorty.utils.Constants
 
 class LocationsAdapter :

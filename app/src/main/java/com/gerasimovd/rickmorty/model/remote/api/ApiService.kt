@@ -1,10 +1,10 @@
-package com.gerasimovd.rickmorty.model.server.api
+package com.gerasimovd.rickmorty.model.remote.api
 
-import com.gerasimovd.rickmorty.model.server.dto.character.CharacterDto
-import com.gerasimovd.rickmorty.model.server.dto.character.CharactersResponse
-import com.gerasimovd.rickmorty.model.server.dto.episode.EpisodeDto
-import com.gerasimovd.rickmorty.model.server.dto.episode.EpisodesResponse
-import com.gerasimovd.rickmorty.model.server.dto.location.LocationsResponse
+import com.gerasimovd.rickmorty.model.remote.dto.character.CharacterDto
+import com.gerasimovd.rickmorty.model.remote.dto.character.CharactersPageResponse
+import com.gerasimovd.rickmorty.model.remote.dto.episode.EpisodeDto
+import com.gerasimovd.rickmorty.model.remote.dto.episode.EpisodesResponse
+import com.gerasimovd.rickmorty.model.remote.dto.location.LocationsResponse
 import com.gerasimovd.rickmorty.utils.Constants
 import retrofit2.Response
 import retrofit2.http.GET
@@ -15,7 +15,7 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET(Constants.CHARACTER_END_POINT)
-    suspend fun getCharacters(@Query("page") page: Int): Response<CharactersResponse>
+    suspend fun getCharacters(@Query("page") page: Int): Response<CharactersPageResponse>
 
     @GET("${Constants.CHARACTER_END_POINT}/{id}")
     suspend fun getCharacterById(@Path("id") characterId: Int): Response<CharacterDto>

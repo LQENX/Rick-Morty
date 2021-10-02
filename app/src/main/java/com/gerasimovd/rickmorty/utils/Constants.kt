@@ -10,5 +10,7 @@ class Constants {
         const val READ_TIMEOUT = 30L
 
         const val UNKNOWN_DATA = "N/A"
+
+        const val START_PAGE = 1
     }
 }

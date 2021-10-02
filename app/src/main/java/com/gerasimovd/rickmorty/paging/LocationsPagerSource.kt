@@ -3,9 +3,8 @@ package com.gerasimovd.rickmorty.paging
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.gerasimovd.rickmorty.model.server.api.ApiService
-import com.gerasimovd.rickmorty.model.server.dto.character.CharacterDto
-import com.gerasimovd.rickmorty.model.server.dto.location.LocationDto
+import com.gerasimovd.rickmorty.model.remote.api.ApiService
+import com.gerasimovd.rickmorty.model.remote.dto.location.LocationDto
 
 
 class LocationsPagerSource(private val apiService: ApiService) : PagingSource<Int, LocationDto>() {

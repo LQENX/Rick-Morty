@@ -1,9 +1,8 @@
-package com.gerasimovd.rickmorty.model.server.api
+package com.gerasimovd.rickmorty.model.remote.api
 
 import com.gerasimovd.rickmorty.di.AppModule
-import com.gerasimovd.rickmorty.model.server.dto.character.CharacterDto
-import com.gerasimovd.rickmorty.model.server.dto.episode.EpisodeDto
-import com.gerasimovd.rickmorty.model.server.dto.episode.EpisodesResponse
+import com.gerasimovd.rickmorty.model.remote.dto.character.CharacterDto
+import com.gerasimovd.rickmorty.model.remote.dto.episode.EpisodeDto
 
 
 object ApiImpl {

@@ -1,4 +1,4 @@
-package com.gerasimovd.rickmorty.model.server.dto.character
+package com.gerasimovd.rickmorty.model.remote.dto.character
 
 import android.os.Parcel
 import android.os.Parcelable

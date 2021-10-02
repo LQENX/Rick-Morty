@@ -7,13 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.ExperimentalPagingApi
 import com.gerasimovd.rickmorty.adapters.CharactersAdapter
 import com.gerasimovd.rickmorty.databinding.CharactersFragmentBinding
-import com.gerasimovd.rickmorty.model.server.dto.character.CharacterDto
+import com.gerasimovd.rickmorty.model.remote.dto.character.CharacterDto
+import com.gerasimovd.rickmorty.repository.RickMortyRepo
 import com.gerasimovd.rickmorty.utils.ItemClickListener
 import com.gerasimovd.rickmorty.viewmodel.CharactersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 
@@ -26,6 +30,7 @@ class CharactersFragment : Fragment(), ItemClickListener {
 
 
 
+    @ExperimentalPagingApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,10 +54,11 @@ class CharactersFragment : Fragment(), ItemClickListener {
         binding.charactersRecycler.adapter = recyclerAdapter
     }
 
+    @ExperimentalPagingApi
     private fun loadData() {
         lifecycleScope.launch {
-            viewModel.charactersData.collect { pagingData ->
-                recyclerAdapter.submitData(pagingData)
+            viewModel.charactersMediatorData.collectLatest {
+                recyclerAdapter.submitData(it)
             }
         }
     }

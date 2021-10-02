@@ -1,11 +1,11 @@
-package com.gerasimovd.rickmorty.model.server.dto.character
+package com.gerasimovd.rickmorty.model.remote.dto.character
 
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 
-data class CharacterOriginDto(
+data class CharacterLocationDto(
     @SerializedName("name") val name: String,
     @SerializedName("url") val url: String
 ) : Parcelable {
@@ -23,8 +23,8 @@ data class CharacterOriginDto(
 
     override fun describeContents(): Int = 0
 
-    companion object CREATOR : Parcelable.Creator<CharacterOriginDto> {
-        override fun createFromParcel(parcel: Parcel): CharacterOriginDto = CharacterOriginDto(parcel)
-        override fun newArray(size: Int): Array<CharacterOriginDto?> = arrayOfNulls(size)
+    companion object CREATOR : Parcelable.Creator<CharacterLocationDto> {
+        override fun createFromParcel(parcel: Parcel): CharacterLocationDto = CharacterLocationDto(parcel)
+        override fun newArray(size: Int): Array<CharacterLocationDto?> = arrayOfNulls(size)
     }
 }

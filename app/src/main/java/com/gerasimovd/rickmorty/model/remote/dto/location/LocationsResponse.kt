@@ -1,4 +1,4 @@
-package com.gerasimovd.rickmorty.model.server.dto.location
+package com.gerasimovd.rickmorty.model.remote.dto.location
 
 import com.google.gson.annotations.SerializedName
 
