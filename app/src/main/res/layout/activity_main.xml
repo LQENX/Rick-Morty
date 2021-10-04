@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity">
+    tools:context=".view.MainActivity"
+    android:background="@color/black">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
@@ -21,9 +22,29 @@
         app:menu="@menu/bottom_navigation"
         app:labelVisibilityMode="selected"
         app:itemBackground="@color/black"
-        app:itemIconTint="#545454"
-        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/middle_gray"
+        app:itemTextColor="@color/light_gray"
+        app:layout_behavior="com.gerasimovd.rickmorty.BottomNavigationBehavior"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/fragment_container">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/offline_status"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/offline_mode"
+            android:textSize="@dimen/_10sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:background="@color/design_default_color_error"
+            />
+
+    </LinearLayout>
 
 
 

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gerasimovd.rickmorty.R
 import com.gerasimovd.rickmorty.databinding.CharacterItemBinding
-import com.gerasimovd.rickmorty.model.entities.Character
+import com.gerasimovd.rickmorty.model.entities.character.Character
 import com.gerasimovd.rickmorty.utils.ItemClickListener
 
 
@@ -30,7 +30,7 @@ class CharactersAdapter(private val recyclerListener: ItemClickListener) :
     private lateinit var binding: CharacterItemBinding
 
 
-    class ViewHolder(val bindingView: CharacterItemBinding)
+    class ViewHolder(private val bindingView: CharacterItemBinding)
         : RecyclerView.ViewHolder(bindingView.root) {
 
         fun bind(item: Character, clickListener: ItemClickListener) {
@@ -48,8 +48,6 @@ class CharactersAdapter(private val recyclerListener: ItemClickListener) :
                 characterGender.text = item.gender
                 characterLastLocation.text = item.location.name
             }
-
-
         }
     }
 

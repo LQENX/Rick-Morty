@@ -8,15 +8,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/drawable/ic_search_24.xml" value="0.2723076923076923" />
+        <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/drawable/ic_search_48.xml" value="0.2723076923076923" />
         <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/layout/activity_main.xml" value="0.23796296296296296" />
         <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/layout/character_info_fragment.xml" value="0.264" />
         <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/layout/character_item.xml" value="0.27447916666666666" />
         <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/layout/characters_fragment.xml" value="0.27447916666666666" />
         <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/layout/episode_item.xml" value="0.27447916666666666" />
         <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/layout/episodes_fragment.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/layout/loading_placeholder.xml" value="0.2604166666666667" />
         <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/layout/location_item.xml" value="0.27447916666666666" />
         <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/layout/locations_fragment.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/layout/recycler_footer.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/layout/recycler_footer_state.xml" value="0.27447916666666666" />
         <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/menu/bottom_navigation.xml" value="0.264" />
+        <entry key="..\:/AndroidProjects/RickMorty/app/src/main/res/menu/toolbar_options.xml" value="0.27447916666666666" />
       </map>
     </option>
   </component>

@@ -2,24 +2,40 @@ package com.gerasimovd.rickmorty.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gerasimovd.rickmorty.databinding.EpisodeItemBinding
-import com.gerasimovd.rickmorty.model.remote.dto.episode.EpisodeDto
+import com.gerasimovd.rickmorty.model.entities.episode.Episode
+import com.gerasimovd.rickmorty.utils.ItemClickListener
 
 
-class CharacterInfoAdapter(private val episodes: List<EpisodeDto>) :
-    RecyclerView.Adapter<CharacterInfoAdapter.ViewHolder>(){
+class CharacterInfoAdapter(private val recyclerListener: ItemClickListener) :
+    PagingDataAdapter<Episode, CharacterInfoAdapter.ViewHolder>(diffCallback){
+
+    companion object {
+        val diffCallback = object : DiffUtil.ItemCallback<Episode>() {
+            override fun areContentsTheSame(oldItem: Episode, newItem: Episode): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areItemsTheSame(oldItem: Episode, newItem: Episode): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 
     private lateinit var binding: EpisodeItemBinding
 
 
     class ViewHolder(private val bindingView: EpisodeItemBinding): RecyclerView.ViewHolder(bindingView.root) {
-        private lateinit var currentItem: EpisodeDto
 
-        fun bind(item: EpisodeDto) {
-            currentItem = item
-            bindingView.episodeName.text = currentItem.name
-            bindingView.episodeAirDate.text = currentItem.air_date
+        fun bind(item: Episode, clickListener: ItemClickListener) {
+            bindingView.apply {
+                root.setOnClickListener { clickListener.onClick(item) }
+                episodeName.text = item.name
+                episodeAirDate.text = item.air_date
+            }
         }
     }
 
@@ -29,8 +45,7 @@ class CharacterInfoAdapter(private val episodes: List<EpisodeDto>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(episodes.get(position))
+        val currentItem = getItem(position)
+        currentItem?.let { holder.bind(currentItem, recyclerListener) }
     }
-
-    override fun getItemCount(): Int = episodes.size
 }

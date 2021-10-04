@@ -1,9 +1,11 @@
 package com.gerasimovd.rickmorty.di
 
 import android.content.Context
+import androidx.paging.ExperimentalPagingApi
 import androidx.room.Room
 import com.gerasimovd.rickmorty.model.database.AppDatabase
 import com.gerasimovd.rickmorty.model.remote.api.ApiService
+import com.gerasimovd.rickmorty.repository.RickMortyRepo
 import com.gerasimovd.rickmorty.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -53,5 +55,12 @@ object AppModule {
             AppDatabase::class.java,
             "AppDatabase")
             .build()
+    }
+
+    @ExperimentalPagingApi
+    @Provides
+    @Singleton
+    fun provideRickMortyRepo(apiService: ApiService, database: AppDatabase): RickMortyRepo {
+        return RickMortyRepo.newInstance(apiService, database)
     }
 }

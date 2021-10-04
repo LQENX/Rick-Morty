@@ -3,21 +3,23 @@ package com.gerasimovd.rickmorty.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.gerasimovd.rickmorty.model.database.AppDatabase
-import com.gerasimovd.rickmorty.model.remote.api.ApiService
+import com.gerasimovd.rickmorty.model.entities.character.Character
 import com.gerasimovd.rickmorty.repository.RickMortyRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
 @HiltViewModel
-class CharactersViewModel @Inject constructor(private val apiService: ApiService, private val database: AppDatabase) : ViewModel() {
+class CharactersViewModel @ExperimentalPagingApi
+@Inject constructor(private val repository: RickMortyRepo) : ViewModel() {
 
-    @ExperimentalPagingApi
-    private val repository = RickMortyRepo.newInstance(apiService, database)
 
+    /** Get characters only from Room (by name) */
     @ExperimentalPagingApi
-    val charactersMediatorData = repository.getCharactersFlow().cachedIn(viewModelScope)
+    fun getCharacters(characterName: String = ""): Flow<PagingData<Character>> =
+        repository.getCharactersFlow(characterName).cachedIn(viewModelScope)
 
 }

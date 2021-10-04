@@ -5,9 +5,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.gerasimovd.rickmorty.model.database.AppDatabase
-import com.gerasimovd.rickmorty.model.entities.Character
+import com.gerasimovd.rickmorty.model.entities.character.Character
+import com.gerasimovd.rickmorty.model.entities.episode.Episode
 import com.gerasimovd.rickmorty.model.remote.api.ApiService
 import com.gerasimovd.rickmorty.paging.CharacterMediator
+import com.gerasimovd.rickmorty.paging.EpisodeMediator
 import kotlinx.coroutines.flow.Flow
 
 
@@ -22,11 +24,37 @@ class RickMortyRepo private constructor(
             RickMortyRepo(apiService, database)
     }
 
-    fun getCharactersFlow(): Flow<PagingData<Character>> {
+    fun getCharactersFlow(characterName: String = ""): Flow<PagingData<Character>> {
         return Pager(
             config = PagingConfig(pageSize = 1, prefetchDistance = 4),
-            pagingSourceFactory = { database.getCharacterDao().getAllCharacters() },
-            remoteMediator = CharacterMediator(apiService, database)
+            pagingSourceFactory = {
+                if (characterName == "") database.getCharacterDao().getAllCharacters()
+                else database.getCharacterDao().getCharactersByName(characterName) },
+            remoteMediator =
+            if (characterName == "") CharacterMediator(apiService, database)
+            else CharacterMediator(apiService, database, isSearchMode = true)
         ).flow
     }
+
+    fun getEpisodesFlow(episodesId: List<Int> = emptyList()): Flow<PagingData<Episode>> {
+        return Pager(
+            config = PagingConfig(pageSize = 1, prefetchDistance = 4),
+            pagingSourceFactory = {
+                if (episodesId.isEmpty()) database.getEpisodeDao().getAllEpisodes()
+                else database.getEpisodeDao().getEpisodesById(episodesId) },
+            remoteMediator =
+            if (episodesId.isEmpty()) EpisodeMediator(apiService, database)
+            else EpisodeMediator(apiService, database, isSearchMode = true)
+        ).flow
+    }
+
+    fun getCharacterById(characterId: Int) = database.getCharacterDao().getCharacterById(characterId)
+
+    fun getEpisodeById(episodeId: Int): Flow<Episode> = database.getEpisodeDao().getEpisodeById(episodeId)
+
+    suspend fun insertEpisodes(episodes: List<Episode>) {
+        database.getEpisodeDao().insertEpisodes(episodes = episodes)
+    }
+
+
 }

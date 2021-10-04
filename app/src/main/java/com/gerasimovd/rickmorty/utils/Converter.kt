@@ -1,7 +1,9 @@
 package com.gerasimovd.rickmorty.utils
 
-import com.gerasimovd.rickmorty.model.entities.Character
+import com.gerasimovd.rickmorty.model.entities.character.Character
+import com.gerasimovd.rickmorty.model.entities.episode.Episode
 import com.gerasimovd.rickmorty.model.remote.dto.character.CharacterDto
+import com.gerasimovd.rickmorty.model.remote.dto.episode.EpisodeDto
 
 
 object Converter {
@@ -33,5 +35,24 @@ object Converter {
         }
 
         return charactersEntity
+    }
+
+    fun fromEpisodesDtoToEntity(episodesDto: List<EpisodeDto>): List<Episode> {
+        val episodesEntity = mutableListOf<Episode>()
+
+        for (dto in episodesDto) {
+            episodesEntity.add(
+                Episode(
+                    id = dto.id,
+                    name = dto.name,
+                    air_date = dto.air_date,
+                    episode = dto.episode,
+                    characters = dto.characters,
+                    url = dto.url,
+                    created = dto.created
+                )
+            )
+        }
+        return episodesEntity
     }
 }

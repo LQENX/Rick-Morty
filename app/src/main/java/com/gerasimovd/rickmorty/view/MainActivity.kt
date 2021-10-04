@@ -1,15 +1,22 @@
 package com.gerasimovd.rickmorty.view
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.gerasimovd.rickmorty.R
 import com.gerasimovd.rickmorty.databinding.ActivityMainBinding
+import com.gerasimovd.rickmorty.utils.Constants
+import com.gerasimovd.rickmorty.utils.NetworkManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -17,12 +24,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    // Indicates what a Fragment in BottomNavBar is currently selected
-    // Helps to avoid re-click an already opened Fragment.
-    private var currentFragmentOpened: MenuItem? = null
-
     // Time when the button was pressed in milliseconds
     private var backPressed: Long = 0
+
+    // Receiver for network connection
+    private var receiver: BroadcastReceiver? = null
+
 
     companion object {
         private const val BACK_PRESSED_OFFSET = 2000
@@ -35,7 +42,50 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setBottomNavListener()
         setStartFragment()
+    }
 
+    override fun onResume() {
+        registerBroadcast()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        unregisterBroadcast()
+        super.onPause()
+    }
+
+    private fun registerBroadcast() {
+        receiver = getReceiver()
+        val filter = IntentFilter(Constants.NETWORK_INTENT_ACTION)
+        this.registerReceiver(receiver, filter)
+    }
+
+    private fun unregisterBroadcast() {
+        receiver?.let { this.unregisterReceiver(it) }
+        receiver = null
+    }
+
+    private fun getReceiver(): BroadcastReceiver {
+        if (receiver == null) {
+            receiver = object : BroadcastReceiver() {
+                override fun onReceive(context: Context?, intent: Intent?) {
+                    val connectivityManager =
+                        getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                    val isNetworkConnected = connectivityManager.activeNetworkInfo?.isConnected ?: false
+                    setNetworkConnected(isNetworkConnected)
+                    updateNetworkStatus(isNetworkConnected)
+                }
+            }
+        }
+        return receiver!!
+    }
+
+    private fun updateNetworkStatus(isConnected: Boolean) {
+        binding.offlineStatus.isVisible = !isConnected
+    }
+
+    private fun setNetworkConnected(isConnected: Boolean) {
+        NetworkManager.setNetworkStatus(isConnected)
     }
 
     private fun setBottomNavListener() {
@@ -47,32 +97,41 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.fragment_container, CharactersFragment())
             .commit()
-
-        disableClick(binding.bottomNavigation.menu[0])
     }
 
     private fun navListener() = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
         when(menuItem.itemId) {
             R.id.nav_characters -> {
-                disableClick(menuItem)
-                val fragment = CharactersFragment()
-                navigateTo(fragment)
-
+                var currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+                if (currentFragment is CharactersFragment)
+                    currentFragment.scrollToTop()
+                else {
+                    currentFragment = CharactersFragment()
+                    navigateTo(currentFragment)
+                }
                 return@OnNavigationItemSelectedListener true
             }
 
             R.id.nav_locations -> {
-                disableClick(menuItem)
-                val fragment = LocationsFragment()
-                navigateTo(fragment)
+                var currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+                if (currentFragment is LocationsFragment)
+                    //fixme: implement scrollToTop() for this fragment
+                else {
+                    currentFragment = LocationsFragment()
+                    navigateTo(currentFragment)
+                }
 
                 return@OnNavigationItemSelectedListener true
             }
 
             R.id.nav_episodes -> {
-                disableClick(menuItem)
-                val fragment = EpisodesFragment()
-                navigateTo(fragment)
+                var currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+                if (currentFragment is EpisodesFragment)
+                    //fixme: implement scrollToTop() for this fragment
+                else {
+                    currentFragment = EpisodesFragment()
+                    navigateTo(currentFragment)
+                }
 
                 return@OnNavigationItemSelectedListener true
             }
@@ -93,13 +152,6 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    // Helps to avoid re-click an already opened Fragment
-    private fun disableClick(menuItem: MenuItem) {
-        currentFragmentOpened?.isEnabled = true
-        menuItem.isEnabled = false
-        currentFragmentOpened = menuItem
-    }
-
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount == 0) {
             if (backPressed + BACK_PRESSED_OFFSET > System.currentTimeMillis()) {
@@ -111,5 +163,4 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
-
 }

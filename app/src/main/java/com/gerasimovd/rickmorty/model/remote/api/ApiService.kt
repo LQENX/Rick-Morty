@@ -3,7 +3,7 @@ package com.gerasimovd.rickmorty.model.remote.api
 import com.gerasimovd.rickmorty.model.remote.dto.character.CharacterDto
 import com.gerasimovd.rickmorty.model.remote.dto.character.CharactersPageResponse
 import com.gerasimovd.rickmorty.model.remote.dto.episode.EpisodeDto
-import com.gerasimovd.rickmorty.model.remote.dto.episode.EpisodesResponse
+import com.gerasimovd.rickmorty.model.remote.dto.episode.EpisodesPageResponse
 import com.gerasimovd.rickmorty.model.remote.dto.location.LocationsResponse
 import com.gerasimovd.rickmorty.utils.Constants
 import retrofit2.Response
@@ -30,5 +30,5 @@ interface ApiService {
     suspend fun getEpisodesById(@Path("ids") episodesId: String): Response<List<EpisodeDto>>
 
     @GET(Constants.EPISODE_END_POINT)
-    suspend fun getAllEpisodes(): Response<EpisodesResponse>
+    suspend fun getEpisodes(@Query("page") page: Int): Response<EpisodesPageResponse>
 }

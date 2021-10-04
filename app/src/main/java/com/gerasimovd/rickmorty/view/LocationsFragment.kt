@@ -6,14 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import com.gerasimovd.rickmorty.adapters.CharactersAdapter
 import com.gerasimovd.rickmorty.adapters.LocationsAdapter
 import com.gerasimovd.rickmorty.databinding.LocationsFragmentBinding
 import com.gerasimovd.rickmorty.viewmodel.LocationsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -31,7 +27,7 @@ class LocationsFragment : Fragment() {
         binding = LocationsFragmentBinding.inflate(inflater, container, false)
 
         initRecyclerView()
-        loadData()
+
 
         return binding.root
     }
@@ -41,11 +37,4 @@ class LocationsFragment : Fragment() {
         binding.locationsRecycler.adapter = recyclerAdapter
     }
 
-    private fun loadData() {
-        lifecycleScope.launch {
-            viewModel.locationsData.collect { pagingData ->
-                recyclerAdapter.submitData(pagingData)
-            }
-        }
-    }
 }

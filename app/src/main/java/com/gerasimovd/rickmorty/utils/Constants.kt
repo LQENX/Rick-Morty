@@ -12,5 +12,7 @@ class Constants {
         const val UNKNOWN_DATA = "N/A"
 
         const val START_PAGE = 1
+
+        const val NETWORK_INTENT_ACTION = "android.net.conn.CONNECTIVITY_CHANGE"
     }
 }

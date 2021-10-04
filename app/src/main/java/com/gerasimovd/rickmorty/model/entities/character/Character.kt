@@ -1,4 +1,4 @@
-package com.gerasimovd.rickmorty.model.entities
+package com.gerasimovd.rickmorty.model.entities.character
 
 import androidx.room.*
 import com.gerasimovd.rickmorty.model.remote.dto.character.CharacterLocationDto

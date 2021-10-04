@@ -4,4 +4,11 @@
     <string name="title_locations">Locations</string>
     <string name="title_episodes">Episodes</string>
     <string name="last_known_location_title">Last known location:</string>
+
+    <string name="offline_status_message">You\'re offline. Check your connection.</string>
+    <string name="retry_button">Retry</string>
+    <string name="offline_mode">Offline mode</string>
+    <string name="action_search">search</string>
+    <string name="origin">Origin:</string>
+    <string name="location">Location:</string>
 </resources>
