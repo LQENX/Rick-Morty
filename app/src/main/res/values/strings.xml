@@ -11,4 +11,6 @@
     <string name="action_search">search</string>
     <string name="origin">Origin:</string>
     <string name="location">Location:</string>
+    <string name="air_date">Air date:</string>
+    <string name="episode_code">Episode code:</string>
 </resources>

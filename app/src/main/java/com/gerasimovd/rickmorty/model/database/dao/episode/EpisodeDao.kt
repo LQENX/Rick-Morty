@@ -14,10 +14,10 @@ interface EpisodeDao {
     @Query("SELECT * FROM Episode")
     fun getAllEpisodes(): PagingSource<Int, Episode>
 
-    @Query("SELECT * FROM Episode WHERE id IN (:episodesId)")
-    fun getEpisodesById(episodesId: List<Int>): PagingSource<Int, Episode>
+    @Query("SELECT * FROM Episode WHERE name LIKE '%' || :episodeName  || '%'")
+    fun getEpisodesByName(episodeName: String): PagingSource<Int, Episode>
 
-    @Query("SELECT * FROM Episode WHERE id LIKE '%' || :episodeId  || '%'")
+    @Query("SELECT * FROM Episode WHERE id =:episodeId")
     fun getEpisodeById(episodeId: Int): Flow<Episode>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

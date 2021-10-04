@@ -1,4 +1,4 @@
-package com.gerasimovd.rickmorty.adapters
+package com.gerasimovd.rickmorty.adapters.episode
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,8 +10,8 @@ import com.gerasimovd.rickmorty.model.entities.episode.Episode
 import com.gerasimovd.rickmorty.utils.ItemClickListener
 
 
-class CharacterInfoAdapter(private val recyclerListener: ItemClickListener) :
-    PagingDataAdapter<Episode, CharacterInfoAdapter.ViewHolder>(diffCallback){
+class EpisodesAdapter(private val recyclerListener: ItemClickListener) :
+    PagingDataAdapter<Episode, EpisodesAdapter.ViewHolder>(diffCallback) {
 
     companion object {
         val diffCallback = object : DiffUtil.ItemCallback<Episode>() {
@@ -27,12 +27,12 @@ class CharacterInfoAdapter(private val recyclerListener: ItemClickListener) :
 
     private lateinit var binding: EpisodeItemBinding
 
-
-    class ViewHolder(private val bindingView: EpisodeItemBinding): RecyclerView.ViewHolder(bindingView.root) {
-
+    class ViewHolder(private val bindingView: EpisodeItemBinding) :
+        RecyclerView.ViewHolder(bindingView.root) {
         fun bind(item: Episode, clickListener: ItemClickListener) {
             bindingView.apply {
                 root.setOnClickListener { clickListener.onClick(item) }
+
                 episodeName.text = item.name
                 episodeAirDate.text = item.air_date
             }
@@ -48,4 +48,5 @@ class CharacterInfoAdapter(private val recyclerListener: ItemClickListener) :
         val currentItem = getItem(position)
         currentItem?.let { holder.bind(currentItem, recyclerListener) }
     }
+
 }

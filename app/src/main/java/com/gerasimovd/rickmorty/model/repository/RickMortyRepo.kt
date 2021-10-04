@@ -1,4 +1,4 @@
-package com.gerasimovd.rickmorty.repository
+package com.gerasimovd.rickmorty.model.repository
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
@@ -36,21 +36,23 @@ class RickMortyRepo private constructor(
         ).flow
     }
 
-    fun getEpisodesFlow(episodesId: List<Int> = emptyList()): Flow<PagingData<Episode>> {
+    fun getEpisodesFlow(episodesName: String = ""): Flow<PagingData<Episode>> {
         return Pager(
             config = PagingConfig(pageSize = 1, prefetchDistance = 4),
             pagingSourceFactory = {
-                if (episodesId.isEmpty()) database.getEpisodeDao().getAllEpisodes()
-                else database.getEpisodeDao().getEpisodesById(episodesId) },
+                if (episodesName == "") database.getEpisodeDao().getAllEpisodes()
+                else database.getEpisodeDao().getEpisodesByName(episodesName) },
             remoteMediator =
-            if (episodesId.isEmpty()) EpisodeMediator(apiService, database)
+            if (episodesName == "") EpisodeMediator(apiService, database)
             else EpisodeMediator(apiService, database, isSearchMode = true)
         ).flow
     }
 
-    fun getCharacterById(characterId: Int) = database.getCharacterDao().getCharacterById(characterId)
+    fun getCharacterById(characterId: Int): Flow<Character> =
+        database.getCharacterDao().getCharacterById(characterId)
 
-    fun getEpisodeById(episodeId: Int): Flow<Episode> = database.getEpisodeDao().getEpisodeById(episodeId)
+    fun getEpisodeById(episodeId: Int): Flow<Episode> =
+        database.getEpisodeDao().getEpisodeById(episodeId)
 
     suspend fun insertEpisodes(episodes: List<Episode>) {
         database.getEpisodeDao().insertEpisodes(episodes = episodes)

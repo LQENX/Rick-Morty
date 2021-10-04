@@ -5,7 +5,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.room.Room
 import com.gerasimovd.rickmorty.model.database.AppDatabase
 import com.gerasimovd.rickmorty.model.remote.api.ApiService
-import com.gerasimovd.rickmorty.repository.RickMortyRepo
+import com.gerasimovd.rickmorty.model.repository.RickMortyRepo
 import com.gerasimovd.rickmorty.utils.Constants
 import dagger.Module
 import dagger.Provides

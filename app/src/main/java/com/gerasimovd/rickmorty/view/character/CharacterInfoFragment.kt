@@ -1,4 +1,4 @@
-package com.gerasimovd.rickmorty.view
+package com.gerasimovd.rickmorty.view.character
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,8 +12,8 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gerasimovd.rickmorty.R
-import com.gerasimovd.rickmorty.adapters.CharacterInfoAdapter
 import com.gerasimovd.rickmorty.adapters.CustomLoadStateAdapter
+import com.gerasimovd.rickmorty.adapters.episode.EpisodesAdapter
 import com.gerasimovd.rickmorty.databinding.CharacterInfoFragmentBinding
 import com.gerasimovd.rickmorty.model.entities.character.Character
 import com.gerasimovd.rickmorty.model.entities.episode.Episode
@@ -21,7 +21,7 @@ import com.gerasimovd.rickmorty.utils.ItemClickListener
 import com.gerasimovd.rickmorty.utils.LoadingPlaceholder
 import com.gerasimovd.rickmorty.utils.MessageToUser
 import com.gerasimovd.rickmorty.utils.NetworkManager
-import com.gerasimovd.rickmorty.viewmodel.CharactersInfoViewModel
+import com.gerasimovd.rickmorty.viewmodel.character.CharacterInfoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,9 +30,9 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class CharacterInfoFragment : Fragment(), ItemClickListener {
     private lateinit var binding: CharacterInfoFragmentBinding
-    private val viewModel: CharactersInfoViewModel by viewModels()
+    private val viewModel: CharacterInfoViewModel by viewModels()
     private val characterId: Int by lazy { getCharacterId() }
-    private lateinit var recyclerAdapter: CharacterInfoAdapter
+    private lateinit var recyclerAdapter: EpisodesAdapter
 
 
     companion object {
@@ -74,10 +74,8 @@ class CharacterInfoFragment : Fragment(), ItemClickListener {
 
     private fun fetchCharacter() {
         lifecycleScope.launch {
-            var characterInfo: Character? = null
             viewModel.getCharacterById(characterId).collectLatest { character ->
-                characterInfo = character
-                setupData(characterInfo!!)
+                setupData(character)
             }
         }
     }
@@ -113,8 +111,8 @@ class CharacterInfoFragment : Fragment(), ItemClickListener {
         }
     }
 
-    private fun setupAdapter(): CharacterInfoAdapter {
-        recyclerAdapter = CharacterInfoAdapter(this)
+    private fun setupAdapter(): EpisodesAdapter {
+        recyclerAdapter = EpisodesAdapter(this)
         registerObserverToNetworkState()
 
         recyclerAdapter.apply {

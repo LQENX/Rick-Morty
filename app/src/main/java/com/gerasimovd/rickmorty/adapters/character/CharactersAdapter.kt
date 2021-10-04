@@ -1,4 +1,4 @@
-package com.gerasimovd.rickmorty.adapters
+package com.gerasimovd.rickmorty.adapters.character
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

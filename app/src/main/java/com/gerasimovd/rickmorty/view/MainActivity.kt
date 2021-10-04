@@ -14,6 +14,8 @@ import com.gerasimovd.rickmorty.R
 import com.gerasimovd.rickmorty.databinding.ActivityMainBinding
 import com.gerasimovd.rickmorty.utils.Constants
 import com.gerasimovd.rickmorty.utils.NetworkManager
+import com.gerasimovd.rickmorty.view.character.CharactersFragment
+import com.gerasimovd.rickmorty.view.episode.EpisodesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -127,7 +129,7 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_episodes -> {
                 var currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
                 if (currentFragment is EpisodesFragment)
-                    //fixme: implement scrollToTop() for this fragment
+                    currentFragment.scrollToTop()
                 else {
                     currentFragment = EpisodesFragment()
                     navigateTo(currentFragment)
