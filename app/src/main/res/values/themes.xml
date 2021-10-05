@@ -16,6 +16,6 @@
 
     <style name="splashScreen" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_image</item>
-        <item name="android:statusBarColor">@color/pinky</item>
+        <item name="android:statusBarColor">@color/black</item>
     </style>
 </resources>
