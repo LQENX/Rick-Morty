@@ -17,6 +17,7 @@
         android:text="@string/offline_status_message"
         android:textSize="@dimen/_16sp"
         android:textColor="@color/light_gray"
+        android:visibility="invisible"
         />
 
     <ProgressBar
@@ -27,6 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
