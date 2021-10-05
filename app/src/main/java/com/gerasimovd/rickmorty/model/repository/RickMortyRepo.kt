@@ -7,9 +7,11 @@ import androidx.paging.PagingData
 import com.gerasimovd.rickmorty.model.database.AppDatabase
 import com.gerasimovd.rickmorty.model.entities.character.Character
 import com.gerasimovd.rickmorty.model.entities.episode.Episode
+import com.gerasimovd.rickmorty.model.entities.location.Location
 import com.gerasimovd.rickmorty.model.remote.api.ApiService
 import com.gerasimovd.rickmorty.paging.CharacterMediator
 import com.gerasimovd.rickmorty.paging.EpisodeMediator
+import com.gerasimovd.rickmorty.paging.LocationMediator
 import kotlinx.coroutines.flow.Flow
 
 
@@ -48,15 +50,25 @@ class RickMortyRepo private constructor(
         ).flow
     }
 
+    fun getLocationsFlow(locationName: String = ""): Flow<PagingData<Location>> {
+        return Pager(
+            config = PagingConfig(pageSize = 1, prefetchDistance = 4),
+            pagingSourceFactory = {
+                if (locationName == "") database.getLocationDao().getAllLocations()
+                else database.getLocationDao().getLocationsByName(locationName) },
+            remoteMediator =
+            if (locationName == "") LocationMediator(apiService, database)
+            else LocationMediator(apiService, database, isSearchMode = true)
+        ).flow
+    }
+
     fun getCharacterById(characterId: Int): Flow<Character> =
         database.getCharacterDao().getCharacterById(characterId)
 
     fun getEpisodeById(episodeId: Int): Flow<Episode> =
         database.getEpisodeDao().getEpisodeById(episodeId)
 
-    suspend fun insertEpisodes(episodes: List<Episode>) {
-        database.getEpisodeDao().insertEpisodes(episodes = episodes)
-    }
-
+    fun getLocationById(locationId: Int): Flow<Location> =
+        database.getLocationDao().getLocationById(locationId)
 
 }

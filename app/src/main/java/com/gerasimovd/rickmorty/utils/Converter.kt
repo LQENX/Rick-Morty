@@ -2,8 +2,10 @@ package com.gerasimovd.rickmorty.utils
 
 import com.gerasimovd.rickmorty.model.entities.character.Character
 import com.gerasimovd.rickmorty.model.entities.episode.Episode
+import com.gerasimovd.rickmorty.model.entities.location.Location
 import com.gerasimovd.rickmorty.model.remote.dto.character.CharacterDto
 import com.gerasimovd.rickmorty.model.remote.dto.episode.EpisodeDto
+import com.gerasimovd.rickmorty.model.remote.dto.location.LocationDto
 
 
 object Converter {
@@ -54,5 +56,24 @@ object Converter {
             )
         }
         return episodesEntity
+    }
+
+    fun fromLocationsDtoToEntity(locationsDto: List<LocationDto>): List<Location> {
+        val locationsEntity = mutableListOf<Location>()
+
+        for (dto in locationsDto) {
+            locationsEntity.add(
+                Location(
+                    id = dto.id,
+                    name = dto.name,
+                    type = dto.type,
+                    dimension = dto.dimension,
+                    residents = dto.residents,
+                    url = dto.url,
+                    created = dto.created
+                )
+            )
+        }
+        return locationsEntity
     }
 }

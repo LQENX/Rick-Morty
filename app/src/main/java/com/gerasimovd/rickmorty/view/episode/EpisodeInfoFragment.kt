@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gerasimovd.rickmorty.R
 import com.gerasimovd.rickmorty.adapters.CustomLoadStateAdapter
 import com.gerasimovd.rickmorty.adapters.character.CharactersAdapter
-import com.gerasimovd.rickmorty.adapters.episode.EpisodesAdapter
 import com.gerasimovd.rickmorty.databinding.EpisodeInfoFragmentBinding
 import com.gerasimovd.rickmorty.model.entities.character.Character
 import com.gerasimovd.rickmorty.model.entities.episode.Episode
