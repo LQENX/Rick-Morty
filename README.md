@@ -2,7 +2,7 @@
 ----
 
 --
-ТЗ к курсовому проекту: https://cloud.mail.ru/public/aVTA/wPa3wotw5
+ТЗ к курсовому проекту: https://cloud.mail.ru/public/uyu3/ctatGt5pH
 
 --
 API: https://rickandmortyapi.com/api
