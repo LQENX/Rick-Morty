@@ -25,7 +25,8 @@ class CharacterMediator @Inject constructor(
 
     do some changes in file to commit
     some else
-        anY&>>
+        uou&
+
 
     override suspend fun initialize(): InitializeAction {
         return InitializeAction.LAUNCH_INITIAL_REFRESH
