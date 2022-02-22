@@ -12,13 +12,17 @@ object LoadingPlaceholder {
 
     fun attachToRecyclerAdapter(
         adapter: PagingDataAdapter<Any, RecyclerView.ViewHolder>?,
-        binding: LoadingPlaceholderBinding
+        binding: LoadingPlaceholderBinding,
+        isMediator: Boolean = false
     ): PagingDataAdapter<Any, RecyclerView.ViewHolder>? {
         adapter?.addLoadStateListener { combinedLoadState ->
-            val stateRefresh = combinedLoadState.refresh
+            val stateRefresh =
+                    if (isMediator) combinedLoadState.mediator?.refresh
+                    else combinedLoadState.source.refresh
             val isRecyclerEmpty = adapter.itemCount == 0
             binding.offlineMessage.isVisible = isRecyclerEmpty and (stateRefresh is LoadState.Error)
             binding.loadStateProgress.isVisible = stateRefresh is LoadState.Loading
+            charactersRecycler.isVisible = stateRefresh is LoadState.NotLoading
         }
         return adapter
     }

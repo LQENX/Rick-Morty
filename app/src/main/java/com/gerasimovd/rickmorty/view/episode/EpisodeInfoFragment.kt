@@ -111,7 +111,8 @@ class EpisodeInfoFragment : Fragment(), ItemClickListener {
         recyclerAdapter.apply {
             LoadingPlaceholder.attachToRecyclerAdapter(
                 adapter = recyclerAdapter as PagingDataAdapter<Any, RecyclerView.ViewHolder>,
-                binding = binding.loadingPlaceholder
+                binding = binding.loadingPlaceholder,
+                isMediator = true
             )
         }
         return recyclerAdapter
