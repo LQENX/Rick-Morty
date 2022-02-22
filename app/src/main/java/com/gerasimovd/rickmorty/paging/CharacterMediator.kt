@@ -23,6 +23,7 @@ class CharacterMediator @Inject constructor(
     private val isSearchMode: Boolean = false
 ) : RemoteMediator<Int, Character>() {
 
+    do some changes in file to commit
 
     override suspend fun initialize(): InitializeAction {
         return InitializeAction.LAUNCH_INITIAL_REFRESH
