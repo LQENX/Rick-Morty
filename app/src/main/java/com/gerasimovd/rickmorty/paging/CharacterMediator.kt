@@ -24,6 +24,7 @@ class CharacterMediator @Inject constructor(
 ) : RemoteMediator<Int, Character>() {
 
     do some changes in file to commit
+    some else
 
     override suspend fun initialize(): InitializeAction {
         return InitializeAction.LAUNCH_INITIAL_REFRESH
